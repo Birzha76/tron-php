@@ -12,6 +12,7 @@ use InvalidArgumentException;
 class TRC20 extends TRX
 {
     protected $contractAddress;
+    protected $decimals;
 
     public function __construct(Api $_api, array $config)
     {

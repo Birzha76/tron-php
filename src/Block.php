@@ -4,9 +4,9 @@ namespace Tron;
 
 class Block
 {
-    public $blockID;
-    public $block_header;
-    public $transactions;
+    public string $blockID;
+    public array $block_header;
+    public array $transactions;
 
     public function __construct(string $blockID, array $block_header, array $transactions = [])
     {

@@ -7,7 +7,7 @@ use Tron\Exceptions\TronErrorException;
 
 class Api
 {
-    private $_client;
+    private Client $_client;
 
     public function __construct(Client $client)
     {

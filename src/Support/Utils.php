@@ -35,11 +35,11 @@ class Utils
      * toHex
      * Encoding string or integer or numeric string(is not zero prefixed) or big number to hex.
      *
-     * @param string|int|BigInteger $value
-     * @param bool $isPrefix
+     * @param  int|string|BigInteger  $value
+     * @param  bool  $isPrefix
      * @return string
      */
-    public static function toHex($value, $isPrefix = false)
+    public static function toHex(BigInteger|int|string $value, bool $isPrefix = false)
     {
         if (is_numeric($value)) {
             // turn to hex number
@@ -67,7 +67,7 @@ class Utils
      * @param string
      * @return string
      */
-    public static function hexToBin($value)
+    public static function hexToBin($value): string
     {
         if (!is_string($value)) {
             throw new InvalidArgumentException('The value to hexToBin function must be string.');
@@ -85,21 +85,21 @@ class Utils
      * @param string
      * @return bool
      */
-    public static function isZeroPrefixed($value)
+    public static function isZeroPrefixed($value): bool
     {
         if (!is_string($value)) {
             throw new InvalidArgumentException('The value to isZeroPrefixed function must be string.');
         }
-        return (strpos($value, '0x') === 0);
+        return (str_starts_with($value, '0x'));
     }
 
     /**
      * stripZero
      *
-     * @param string $value
+     * @param  string  $value
      * @return string
      */
-    public static function stripZero($value)
+    public static function stripZero(string $value): string
     {
         if (self::isZeroPrefixed($value)) {
             $count = 1;
@@ -119,7 +119,7 @@ class Utils
         if (!is_string($value)) {
             throw new InvalidArgumentException('The value to isNegative function must be string.');
         }
-        return (strpos($value, '-') === 0);
+        return (str_starts_with($value, '-'));
     }
 
     /**
@@ -128,7 +128,7 @@ class Utils
      * @param string $value
      * @return bool
      */
-    public static function isAddress($value)
+    public static function isAddress($value): bool
     {
         if (!is_string($value)) {
             throw new InvalidArgumentException('The value to isAddress function must be string.');

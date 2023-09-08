@@ -7,9 +7,9 @@ use IEXBase\TronAPI\Support\Hash;
 
 class Address
 {
-    public $privateKey,
-        $address,
-        $hexAddress = '';
+    public string $privateKey;
+    public string $address;
+    public string $hexAddress = '';
 
     const ADDRESS_SIZE = 34;
     const ADDRESS_PREFIX = "41";
@@ -45,7 +45,7 @@ class Address
             return false;
         }
 
-        if (strpos($utf8, chr(self::ADDRESS_PREFIX_BYTE)) !== 0) {
+        if (!str_starts_with($utf8, chr(self::ADDRESS_PREFIX_BYTE))) {
             return false;
         }
 

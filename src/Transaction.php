@@ -4,10 +4,10 @@ namespace Tron;
 
 class Transaction
 {
-    public $signature = [];
-    public $txID = '';
-    public $raw_data = [];
-    public $contractRet = '';
+    public array $signature = [];
+    public string $txID = '';
+    public array $raw_data = [];
+    public string $contractRet = '';
 
     public function __construct(string $txID, array $rawData, string $contractRet)
     {
