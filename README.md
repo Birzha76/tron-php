@@ -2,13 +2,6 @@ English | [中文](./README-CN.md)
 
 <h1 align="center">TRON-PHP</h1>
 
-<p align="center">
-  <a href="https://github.com/Fenguoz/tron-php/releases"><img src="https://poser.pugx.org/Fenguoz/tron-php/v/stable" alt="Stable Version"></a>
-  <a href="https://www.php.net"><img src="https://img.shields.io/badge/php-%3E=7.2-brightgreen.svg?maxAge=2592000" alt="Php Version"></a>
-  <a href="https://github.com/Fenguoz/tron-php/blob/master/LICENSE"><img src="https://img.shields.io/github/license/fenguoz/tron-php.svg?maxAge=2592000" alt="tron-php License"></a>
-  <a href="https://packagist.org/packages/Fenguoz/tron-php"><img src="https://poser.pugx.org/Fenguoz/tron-php/downloads" alt="Total Downloads"></a>
-</p>
-
 ## Introduction
 
 Support TRON's TRX and TRC20, which include functions such as address creation, balance query, transaction transfer, query the latest blockchain, query information based on the blockchain, and query information based on the transaction hash
@@ -76,12 +69,3 @@ $addressData = $trc20Wallet->generateAddress();
 | :-----| :---- | :---- |
 | [Fenguoz/tron-api](https://github.com/Fenguoz/tron-api) | TRON official document recommends PHP extension package | TRON basic API |
 
-## 🌟🌟
-
-[![Stargazers over time](https://starchart.cc/Fenguoz/tron-php.svg)](https://starchart.cc/Fenguoz/tron-php)
-
-## Cooperate
-
-Contact
-- WX：zgf243944672
-- QQ：243944672
