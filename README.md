@@ -1,5 +1,3 @@
-English | [中文](./README-CN.md)
-
 <h1 align="center">TRON-PHP</h1>
 
 ## Introduction
@@ -43,7 +41,10 @@ use GuzzleHttp\Client;
 
 $uri = 'https://api.trongrid.io';// mainnet
 // $uri = 'https://api.shasta.trongrid.io';// shasta testnet
-$api = new \Tron\Api(new Client(['base_uri' => $uri]));
+
+$apiKey = 'YOUR_TRON_API_KEY'
+
+$api = new \Tron\Api(new Client(['base_uri' => $uri]), $apiKey); // The API key may not be used
 
 $trxWallet = new \Tron\TRX($api);
 $addressData = $trxWallet->generateAddress();

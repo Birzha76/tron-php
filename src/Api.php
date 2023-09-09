@@ -8,10 +8,12 @@ use Tron\Exceptions\TronErrorException;
 class Api
 {
     private Client $_client;
+    private string $apiKey;
 
-    public function __construct(Client $client)
+    public function __construct(Client $client, string $apiKey = null)
     {
         $this->_client = $client;
+        $this->apiKey = $apiKey;
     }
 
     public function getClient(): Client
@@ -30,6 +32,8 @@ class Api
         if (sizeof($data)) {
             $data = ['json' => $data];
         }
+
+        if ($this->apiKey) $data['headers']['TRON-PRO-API-KEY'] = $this->apiKey;
 
         $stream = (string)$this->getClient()->post($endpoint, $data)->getBody();
         $body = json_decode($stream, $returnAssoc);
