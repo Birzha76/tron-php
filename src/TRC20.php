@@ -48,8 +48,10 @@ class TRC20 extends TRX
         return $balance;
     }
 
-    public function transfer(Address $from, Address $to, float $amount): Transaction
+    public function transfer(Address $from, Address $to, float $amount, $feeMultiplier = 1.1): Transaction
     {
+        $functionSelector = 'transfer(address,uint256)';
+
         $this->tron->setAddress($from->address);
         $this->tron->setPrivateKey($from->privateKey);
 
@@ -60,12 +62,16 @@ class TRC20 extends TRX
             throw new TronErrorException($e->getMessage());
         }
         $numberFormat = Formatter::toIntegerFormat($amount);
+        $parameter = "{$toFormat}{$numberFormat}";
+
+        $energyUsed = $this->estimateEnergyToTriggerContract($from, $functionSelector, $parameter);
+        $feeLimit = round($this->energyUnitPrice * $energyUsed * $feeMultiplier);
 
         $body = $this->_api->post('/wallet/triggersmartcontract', [
             'contract_address' => $this->contractAddress->hexAddress,
-            'function_selector' => 'transfer(address,uint256)',
-            'parameter' => "{$toFormat}{$numberFormat}",
-            'fee_limit' => 100000000,
+            'function_selector' => $functionSelector,
+            'parameter' => $parameter,
+            'fee_limit' => $feeLimit,
             'call_value' => 0,
             'owner_address' => $from->hexAddress,
         ], true);
@@ -89,6 +95,29 @@ class TRC20 extends TRX
             );
         } else {
             throw new TransactionException(hex2bin($response['result']['message']));
+        }
+    }
+
+    public function estimateEnergyToTriggerContract(Address $from, $functionSelector, $parameter)
+    {
+        $this->tron->setAddress($from->address);
+        $this->tron->setPrivateKey($from->privateKey);
+
+        $body = $this->_api->post('/wallet/triggerconstantcontract', [
+            'contract_address' => $this->contractAddress->hexAddress,
+            'function_selector' => $functionSelector,
+            'parameter' => $parameter,
+            'owner_address' => $from->hexAddress,
+        ], true);
+
+        if (isset($body['result']['code'])) {
+            throw new TransactionException(hex2bin($body['result']['message']));
+        }
+
+        if (isset($body['result']) && $body['result'] == true && isset($body['energy_used'])) {
+            return $body['energy_used'];
+        } else {
+            throw new TronErrorException(hex2bin($body['result']['message']));
         }
     }
 }

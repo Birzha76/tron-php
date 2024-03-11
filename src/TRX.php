@@ -16,6 +16,7 @@ class TRX implements WalletInterface
 {
     protected Api $_api;
     protected Tron $tron;
+    public $energyUnitPrice = 420;
 
     public function __construct(Api $_api, array $config = [])
     {
@@ -167,5 +168,14 @@ class TRX implements WalletInterface
             $detail['raw_data'],
             $detail['ret'][0]['contractRet'] ?? ''
         );
+    }
+
+    public function setEnergyUnitPrice($energyPrice)
+    {
+        if (is_numeric($energyPrice)) {
+            return $this->energyUnitPrice = $energyPrice;
+        }
+
+        throw new \Exception("Energy Unit Price must be numeric");
     }
 }
